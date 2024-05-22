@@ -1,0 +1,84 @@
+<div class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="form-container bg-white p-8 rounded-lg shadow-lg">
+    <div class="form-header text-center mb-6">
+      <h1 class="text-3xl font-bold">RecruitmentAssistant</h1>
+      <p class="text-xl">Register</p>
+    </div>
+    <form class="space-y-6">
+      <div>
+        <label for="name" class="block text-gray-700 font-medium">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div>
+        <label for="email" class="block text-gray-700 font-medium">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700 font-medium"
+          >Password</label
+        >
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div>
+        <label for="confirm-password" class="block text-gray-700 font-medium"
+          >Confirm Password</label
+        >
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div class="flex items-center justify-between">
+        <label class="flex items-center">
+          <input
+            type="checkbox"
+            class="form-checkbox text-green-500"
+            name="terms"
+          />
+          <span class="ml-2 text-gray-700"
+            >I agree to the terms and conditions</span
+          >
+        </label>
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 font-semibold"
+      >
+        Register
+      </button>
+      <div class="text-center text-gray-700 mt-4">
+        <p>
+          Already have an account?
+          <a
+            href="#"
+            class="text-green-500 hover:underline font-semibold"
+            routerLink="/login"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="form-container bg-white p-8 rounded-lg shadow-lg">
+    <div class="form-header text-center mb-6">
+      <h1 class="text-3xl font-bold">RecrutmentAssistent</h1>
+      <p class="text-xl">Login</p>
+    </div>
+    <form class="space-y-6">
+      <div>
+        <label for="email" class="block text-gray-700">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div>
+        <label for="password" class="block text-gray-700">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="w-full p-2 border border-gray-300 rounded mt-1"
+        />
+      </div>
+      <div class="flex items-center justify-end">
+        <a
+          href=""
+          routerLink="/forgot-password"
+          routerLinkActive="active"
+          class="text-gray-700 hover:underline"
+          >Forgot password?</a
+        >
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 font-semibold"
+        routerLink="/dashboard"
+        routerLinkActive="active"
+      >
+        Login
+      </button>
+      <div class="text-center text-gray-700 mt-4">
+        <p>
+          Don't have an account?
+          <a
+            href="#"
+            class="text-green-500 hover:underline font-semibold"
+            routerLink="/register"
+            routerLinkActive="active"
+            >Register</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
