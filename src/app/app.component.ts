@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import {
-  CollectionReference,
-  DocumentData,
-  Firestore,
-  addDoc,
-  collection,
-} from '@angular/fire/firestore';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { MenuComponent } from './menu/menu.component';
+import { AuthService } from './shared/auth.service';
+import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, MenuComponent, AsyncPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'interview-management';
+  public authService = inject(AuthService);
 
-  constructor(private firestore: Firestore) {}
+  public user$: Observable<User | null>;
+  public title = 'interview-management';
+
+  constructor() {
+    this.user$ = this.authService.user$;
+  }
 
   // ngOnInit(): void {
   //   const testCollection: CollectionReference<DocumentData> = collection(

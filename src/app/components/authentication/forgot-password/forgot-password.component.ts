@@ -1,25 +1,30 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent{
 
-  email: string = "";
-  
-  authService = inject(AuthService);
+  router = inject(Router);
+  fb = inject(FormBuilder);
 
-  forgotPassword(){
-    this.authService.forgotPassword(this.email);
-    this.email = '';
+  form = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+  });
+  constructor(private auth: AuthService) {}
+
+  forgotPassword(): void {
+    const rawForm = this.form.getRawValue();
+    this.auth.forgotPassword(rawForm.email).subscribe(() => {
+      this.router.navigateByUrl('/verify-email');
+    });
   }
-
-  ngOnInit(): void {}
 
 }

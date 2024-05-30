@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/authentication/register/register
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 const appName = 'Interview Management Portal';
 
@@ -39,6 +40,10 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     title: `Dashboard | ${appName}`,
-    // canActivate: [authGuard],
+  },
+  {
+    path: 'schedule',
+    component: ScheduleComponent,
+    title: `Schedule | ${appName}`,
   }
 ];
