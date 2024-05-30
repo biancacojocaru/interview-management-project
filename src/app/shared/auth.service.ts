@@ -9,6 +9,8 @@ import {
 } from '@angular/fire/auth';
 
 import { Route, Router } from '@angular/router';
+import { Observable, from } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +21,8 @@ export class AuthService {
   constructor(private router: Router) {}
 
   //login method
-  login(email: string, password: string) {
-    signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
+  login(email: string, password: string): Observable<void> {
+      const promise =  signInWithEmailAndPassword(this.firebaseAuth, email, password).then(
       res => {
         localStorage.setItem('token', 'true');
 
@@ -36,6 +38,7 @@ export class AuthService {
         this.router.navigate(['/login']);
       }
     );
+    return from(promise);
   }
 
   //register method

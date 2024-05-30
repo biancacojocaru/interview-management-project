@@ -4,7 +4,7 @@
       <h1 class="text1 font-bold">Recrutment Assistent</h1>
       <p class="text2">Login</p>
     </div>
-    <form class="space-y-6">
+    <form class="space-y-6" [formGroup]="form"  (submit)="login()">
       <div>
         <label for="email" class="block text-gray-700">Email</label>
         <input
@@ -12,6 +12,7 @@
           id="email"
           name="email"
           required
+          formControlName="email"
           class="b-full p-2 border border-gray-300 rounded mt-1"
         />
       </div>
@@ -22,6 +23,7 @@
           id="password"
           name="password"
           required
+          formControlName="password"
           class="b-full p-2 border border-gray-300 rounded mt-1"
         />
       </div>
@@ -37,9 +39,8 @@
       <button
         type="submit"
         class="w-full text-white py-3 rounded-lg font-semibold"
-        routerLink="/dashboard"
         routerLinkActive="active"
-        (click)="login()"
+      
       >
         Login
       </button>
