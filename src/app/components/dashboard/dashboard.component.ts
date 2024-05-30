@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
+  authService = inject(AuthService);
+
+  register(){
+    this.authService.logout();
+  }
+
+  ngOnInit(): void {}
 }

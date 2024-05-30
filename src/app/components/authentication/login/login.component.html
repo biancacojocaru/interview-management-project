@@ -1,7 +1,8 @@
 <div class="bg-gray-100 flex items-center justify-center h-screen">
   <div class="form-container bg-white p-8 rounded-lg shadow-lg">
     <div class="form-header text-center mb-6">
-      <h1 class="text-3xl font-bold">RecrutmentAssistent</h1>
+      <h1 class="text-3xl font-bold">Recruitment</h1>
+      <h1 class="text-3xl font-bold">Assistent</h1>
       <p class="text-xl">Login</p>
     </div>
     <form class="space-y-6">
@@ -13,6 +14,7 @@
           name="email"
           required
           class="w-full p-2 border border-gray-300 rounded mt-1"
+          [(ngModel)]="email"
         />
       </div>
       <div>
@@ -23,6 +25,7 @@
           name="password"
           required
           class="w-full p-2 border border-gray-300 rounded mt-1"
+          [(ngModel)]="password"
         />
       </div>
       <div class="flex items-center justify-end">
@@ -37,8 +40,8 @@
       <button
         type="submit"
         class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 font-semibold"
-        routerLink="/dashboard"
         routerLinkActive="active"
+        (click)="login()"
       >
         Login
       </button>

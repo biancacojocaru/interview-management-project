@@ -1,1 +1,94 @@
-dashboard works!
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RecruitmentAssistant Dashboard</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside class="sidebar h-screen fixed flex flex-col">
+        <div class="p-6">
+          <h1 class="text-2xl font-bold text-gray-800">Recruitment</h1>
+          <h1 class="text-2xl font-bold text-gray-800">Assistant</h1>
+        </div>
+        <nav class="flex-1 px-4">
+          <ul>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-purple-100 active"
+                ><i class="fas fa-home mr-3 sidebar-icon"></i>Overview</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-gray-100"
+                ><i class="fas fa-calendar-alt mr-3 sidebar-icon"></i
+                >Schedule</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-gray-100"
+                ><i class="fas fa-chart-bar mr-3 sidebar-icon"></i>Analytics</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-gray-100"
+                ><i class="fas fa-briefcase mr-3 sidebar-icon"></i>Vacancies</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-gray-100"
+                ><i class="fas fa-users mr-3 sidebar-icon"></i>Candidates</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-3 px-4 rounded transition duration-200 hover:bg-gray-100"
+                ><i class="fas fa-file-contract mr-3 sidebar-icon"></i>Offers</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="px-4 py-4">
+          <a
+            href="#"
+            class="block py-3 px-4 rounded transition duration-200 hover:bg-gray-100 flex items-center"
+            ><i class="fas fa-cog mr-3 sidebar-icon"></i>Settings</a
+          >
+          <a
+            href="#"
+            class="block py-3 px-4 rounded transition duration-200 hover:bg-gray-100 flex items-center"
+            ><i class="fas fa-sign-out-alt mr-3 sidebar-icon" (click)="register()"></i>Log out</a
+          >
+        </div>
+      </aside>
+      <!-- Main Content -->
+      <main class="main-content flex-1">
+        <!-- Add your main content here -->
+      </main>
+    </div>
+  </body>
+</html>
