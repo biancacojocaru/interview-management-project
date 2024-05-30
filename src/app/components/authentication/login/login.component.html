@@ -1,9 +1,8 @@
 <div class="bg-gray-100 flex items-center justify-center h-screen">
   <div class="form-container bg-white p-8 rounded-lg shadow-lg">
     <div class="form-header text-center mb-6">
-      <h1 class="text-3xl font-bold">Recruitment</h1>
-      <h1 class="text-3xl font-bold">Assistent</h1>
-      <p class="text-xl">Login</p>
+      <h1 class="text1 font-bold">Recrutment Assistent</h1>
+      <p class="text2">Login</p>
     </div>
     <form class="space-y-6">
       <div>
@@ -13,8 +12,7 @@
           id="email"
           name="email"
           required
-          class="w-full p-2 border border-gray-300 rounded mt-1"
-          [(ngModel)]="email"
+          class="b-full p-2 border border-gray-300 rounded mt-1"
         />
       </div>
       <div>
@@ -24,8 +22,7 @@
           id="password"
           name="password"
           required
-          class="w-full p-2 border border-gray-300 rounded mt-1"
-          [(ngModel)]="password"
+          class="b-full p-2 border border-gray-300 rounded mt-1"
         />
       </div>
       <div class="flex items-center justify-end">
@@ -39,7 +36,8 @@
       </div>
       <button
         type="submit"
-        class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 font-semibold"
+        class="w-full text-white py-3 rounded-lg font-semibold"
+        routerLink="/dashboard"
         routerLinkActive="active"
         (click)="login()"
       >
@@ -50,7 +48,7 @@
           Don't have an account?
           <a
             href="#"
-            class="text-green-500 hover:underline font-semibold"
+            class="text hover:underline font-semibold"
             routerLink="/register"
             routerLinkActive="active"
             >Register</a

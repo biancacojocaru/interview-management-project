@@ -1,20 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 .form-container {
-  max-width: 500px;
-  border-top: 8px solid #51b206;
+  max-width: 550px;
+  border-top: 8px solid #002F6B;
 }
-.form-header {
-  color: #51b206;
+
+.text1 {
+  color: #F48026; 
+  font-size: 30px;
 }
+
+.text2 {
+  margin-top: 10px;
+  color: #002F6B;
+  font-size: 20px;
+}
+
 .form-input {
   border: 2px solid #e5e7eb;
 }
 .form-input:focus {
-  border-color: #51b206;
+  border-color: #002F6B;
   outline: none;
-  box-shadow: 0 0 0 1px #51b206;
+  box-shadow: 0 0 0 1px #002F6B;
 }
 .form-checkbox:checked {
-  background-color: #51b206;
-  border-color: #51b206;
+  background-color: #F48026;
+  border-color: #002F6B;
 }
+
+.w-full {
+  background-color: #002F6B;
+}
+
+.w-full:hover {
+  background-color: #F48026;
+  color: white;
+}
+
+.b-full{
+  width: 100%;
+}
+
+.text{
+  color: #F48026 
+}
+
