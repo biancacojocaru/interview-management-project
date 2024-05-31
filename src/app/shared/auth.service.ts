@@ -21,8 +21,8 @@ export class AuthService {
   firebaseAuth = inject(Auth);
 
   constructor(private router: Router) {
-    const stringUser = localStorage.getItem('user');
-    this.userSubject.next(stringUser ? JSON.parse(stringUser) : null);
+    // const stringUser = localStorage.getItem('user');
+    // this.userSubject.next(stringUser ? JSON.parse(stringUser) : null);
   }
 
   //login method
@@ -53,7 +53,11 @@ export class AuthService {
 
   //register method
   register(email: string, password: string) {
-    createUserWithEmailAndPassword(this.firebaseAuth, email, password).then(
+    const promise = createUserWithEmailAndPassword(
+      this.firebaseAuth,
+      email,
+      password
+    ).then(
       (res) => {
         alert('Registartion Successful');
         this.router.navigate(['/verify-email']);
@@ -64,6 +68,7 @@ export class AuthService {
         this.router.navigate(['/register']);
       }
     );
+    return from(promise);
   }
 
   //logout method
@@ -71,7 +76,7 @@ export class AuthService {
     signOut(this.firebaseAuth).then(
       () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('user')
+        localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
       },

@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
         error: (err) => {
           alert('Login Error');
         },
-        complete: () => {
-          this.router.navigateByUrl('/dashboard');
-        },
       });
     } else {
       alert('Complete the Form');

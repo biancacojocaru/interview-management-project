@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-overview',
+  selector: 'app-analytics',
   standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './overview.component.html',
-  styleUrl: './overview.component.scss'
+  templateUrl: './analytics.component.html',
+  styleUrl: './analytics.component.scss'
 })
-export class OverviewComponent {
+export class AnalyticsComponent {
 
 }

@@ -23,11 +23,4 @@ export class AppComponent {
     this.user$ = this.authService.user$;
   }
 
-  // ngOnInit(): void {
-  //   const testCollection: CollectionReference<DocumentData> = collection(
-  //     this.firestore,
-  //     'test'
-  //   );
-  //   addDoc(testCollection, { text: 'I love firebase' });
-  // }
 }
