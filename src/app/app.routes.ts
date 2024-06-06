@@ -18,7 +18,8 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: '',
-    component: AuthenticationComponent, title: `Authentication | ${appName}`,
+    component: AuthenticationComponent,
+    title: `Authentication | ${appName}`,
     children: [
       {
         path: 'login',
@@ -75,5 +76,5 @@ export const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     title: `Settings | ${appName}`,
-  }
+  },
 ];

@@ -1,26 +1,116 @@
-<div class="container">
-  <div class="add-bar">
-    <button mat-raised-button>Add</button>
-    <button mat-flat-button color="primary">Primary</button>
-    <div class="example-button-row">
-      <button mat-raised-button>Basic</button>
-      <button mat-raised-button color="primary">Primary</button>
-      <button mat-raised-button color="accent">Accent</button>
-      <button mat-raised-button color="warn">Warn</button>
-      <button mat-raised-button disabled>Disabled</button>
-      <a mat-raised-button href="https://www.google.com/" target="_blank"
-        >Link</a
-      >
-    </div>
+<main class="main-content flex-1">
+  <div class="mt-6 flex justify-end">
+    <button
+      class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
+      mat-button
+      (click)="openDialog()"
+    >
+      Add New Vacancy
+    </button>
+  </div>
+  <div>
+    <mat-form-field style="width: 415px">
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. ium"
+        #input
+      />
+    </mat-form-field>
+    <div class="bg-white p-4 rounded-lg shadow-lg">
+      <table mat-table [dataSource]="dataSource">
+        <!-- The name of the post cplumn -->
+        <ng-container matColumnDef="postName">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">Post Name</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.postName }}</td>
+        </ng-container>
 
-    <div class="example-button-row">
-      <button mat-flat-button>Basic</button>
-      <button mat-flat-button color="primary">Primary</button>
-      <button mat-flat-button color="accent">Accent</button>
-      <button mat-flat-button color="warn">Warn</button>
-      <button mat-flat-button disabled>Disabled</button>
-      <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a>
+        <!-- The department name column -->
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">Department</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.department }}</td>
+        </ng-container>
+
+        <!-- The type of josb column -->
+        <ng-container matColumnDef="jobType">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">Job Type</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.jobType }}</td>
+        </ng-container>
+
+        <!-- The status column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">Status</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+        </ng-container>
+
+        <!-- The deadLine column -->
+        <ng-container matColumnDef="deadLine">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">DeadLine</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.deadLine }}</td>
+        </ng-container>
+
+        <!-- The location column -->
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="font-bold">Location</div>
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.location }}</td>
+        </ng-container>
+
+        <!-- The action column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Example icon button with a menu icon"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="table-row"
+        ></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
-  <div class="vacancies">Divs for each vacant post go here</div>
-</div>
+
+  <div class="mt-6 flex justify-end items-center">
+    <div>
+      <button
+        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
+      >
+        Previous
+      </button>
+      <button
+        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</main>
