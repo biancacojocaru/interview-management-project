@@ -1,0 +1,28 @@
+<div class="calendar-container">
+    <div class="calendar">
+      <div class="calendar-headline">
+        <div class="calendar-headline-month">
+          {{ firstDayOfActiveMonth().monthShort }},
+          {{ firstDayOfActiveMonth().year }}
+        </div>
+        <div class="calendar-headline-controls">
+          <button class="calendar-headline-control" (click)="goToPreviousMonth()">Previous</button>
+          <button class="calendar-headline-control calendar-headline-control-today" (click)="goToToday()">Today</button>
+          <button class="calendar-headline-control" (click)="goToNextMonth()">Next</button>
+        </div>
+      </div>
+      <div class="calendar-weeks-grid">
+        <div *ngFor="let weekDay of weekDays()">{{ weekDay }}</div>
+      </div>
+      <div class="calendar-grid">
+        <div *ngFor="let dayOfMonth of daysOfMonth()" [ngClass]="{
+          'calendar-grid-cell': true,
+          'calendar-grid-cell-active': activeDay()?.toISODate() === dayOfMonth.toISODate(),
+          'calendar-grid-cell-inactive': dayOfMonth.month !== firstDayOfActiveMonth().month
+        }" (click)="openSchedule(dayOfMonth)">
+          {{ dayOfMonth.day }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,13 +1,24 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  InputSignal,
+  Signal,
+  WritableSignal,
+  computed,
+  input,
+  signal,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { DateTime, Info, Interval } from 'luxon';
+import { CommonModule } from '@angular/common';
+import { ScheduleCalendarComponent } from '../schedule-calendar/schedule-calendar.component';
 
 @Component({
-  selector: 'app-schedule',
+  selector: 'calendar',
+  styles: [],
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, ScheduleCalendarComponent],
   templateUrl: './schedule.component.html',
-  styleUrl: './schedule.component.scss'
+  styleUrl: './schedule.component.scss',
 })
 export class ScheduleComponent {
-
 }
