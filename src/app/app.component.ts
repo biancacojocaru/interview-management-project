@@ -13,7 +13,11 @@ import { User } from '@angular/fire/auth';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, MenuComponent, AsyncPipe,
+  imports: [
+    CommonModule,
+    RouterOutlet, 
+    MenuComponent,
+    AsyncPipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -38,6 +38,8 @@ $interview-management-theme: mat.define-light-theme((
 
 
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
 body {
   font-family: "Rubik", sans-serif;
   background-color: #f6f7f7;
@@ -109,3 +111,63 @@ calendar {
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+calendar {
+ 
+  width: 70%;
+  margin: auto;
+}
+
+.cdk-overlay-pane {
+  padding-left:250px;
+}
+
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+$custom-primary-palette: (
+50: #e8eaf6,
+100: #c5cae9,
+200: #9fdaa8,
+300: #89cb79,
+400: #5cc081,
+500: #3fb562,
+600: #39ae73,
+700: #3ba531,
+800: #409d29,
+900: #1b8d36,
+contrast: (
+  50: #000,
+  100: #000,
+  200: #000,
+  300: #fff,
+  400: #fff,
+  500: #fff,
+  600: #fff,
+  700: #fff,
+  800: #fff,
+  900: #fff,
+),
+);
+
+$custom-typography:  mat.define-typography-config($font-family: sans-serif);
+$custom-primary: mat.define-palette($custom-primary-palette);
+$custom-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$custom-worn: mat.define-palette(mat.$red-palette);
+
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    worn: $custom-worn,
+  ),
+  typography: $custom-typography,
+));
+
+@include mat.all-component-themes($custom-theme);

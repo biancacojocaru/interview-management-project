@@ -16,9 +16,12 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    importProvidersFrom(CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    })), provideAnimationsAsync(),
+    provideAnimationsAsync(),
+    importProvidersFrom(
+      CalendarModule.forRoot({
+        provide: DateAdapter,
+        useFactory: adapterFactory,
+      })
+    ),
   ],
 };
