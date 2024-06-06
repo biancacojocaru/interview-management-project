@@ -1,0 +1,11 @@
+<div>
+  <h2>{{ data.date }}</h2>
+  <div *ngIf="data.meetings.length === 0">
+    <p>No Planned Meetings today</p>
+  </div>
+  <div *ngIf="data.meetings.length > 0">
+    <div *ngFor="let meeting of data.meetings" class="meeting-card">
+      {{ meeting }}
+    </div>
+  </div>
+</div>
