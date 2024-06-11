@@ -1,5 +1,10 @@
 <div>
-  <h2>{{ data.date }}</h2>
+  <div class="add-event">
+    <h2>{{ data.date }}</h2>
+    <button mat-icon-button aria-label="Example icon button with a heart icon" (click)="openDialog()">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
   <div *ngIf="data.meetings.length === 0">
     <p>No Planned Meetings today</p>
   </div>

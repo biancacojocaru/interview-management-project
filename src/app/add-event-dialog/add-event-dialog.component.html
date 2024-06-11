@@ -1,0 +1,138 @@
+
+
+<h2 mat-dialog-title>Creare eveniment</h2>
+<mat-dialog-content class="Creare eveniment">
+
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup" [completed]="false">
+    <form formGroup="firstFormGroup">
+      <ng-template matStepLabel>Titlul evenimentului</ng-template>
+      <mat-form-field>
+        <mat-label>Titlul</mat-label>
+        <input matInput placeholder="Interviu cu [Numele Candidatului]" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form formGroup="secondFormGroup">
+      <ng-template matStepLabel>Data si ora</ng-template>
+      <mat-form-field>
+        <mat-label>Data</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Selecteaza data interviului"
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Ora începerii</mat-label>
+        <input matInput formControlName="thirdCtrl" placeholder="Ex: 9:00"
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Durata interviului</mat-label>
+        <input matInput formControlName="fourthCtrl" placeholder="Ex: 1 oră"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form formGroup="thirdFormGroup">
+      <ng-template matStepLabel>Locatia</ng-template>
+      <mat-form-field>
+        <mat-label>Locatia fizică</mat-label>
+        <input matInput formControlName="fifthCtrl" placeholder="Adresaa locaţiei interviului"
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Locatie online</mat-label>
+        <input matInput formControlName="sixthCtrl" placeholder="Link-ul de videoconferinta(ex: Zoom, Teams)"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup">
+    <form formGroup="fourthFormGroup">
+      <ng-template matStepLabel>Participanţi</ng-template>
+      <mat-form-field>
+        <mat-label>Intervievatori</mat-label>
+        <input matInput formControlName="seventhCtrl" placeholder="Numele si functiile intervievatorilor"
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Email candidat</mat-label>
+        <input type="email" matInput formControl="emailFormControl" placeholder="Ex. pat@example.com">
+        @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+          <mat-error>Please enter a valid email address</mat-error>
+        }
+        @if (emailFormControl.hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Telefon</mat-label>
+        <span matTextPrefix>+04 &nbsp;</span>
+        <input type="tel" matInput placeholder="555-555-1234"> 
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fifthFormGroup" [completed]="false">
+    <form formGroup="fifthFormGroup">
+      <ng-template matStepLabel>Descrierea evenimentului</ng-template>
+      <mat-form-field>
+        <mat-label>Descriere</mat-label>
+        <input matInput placeholder="Descrierea interviului si instrucţiuni speciale" formControlName="ninethCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form formGroup="thirdFormGroup">
+      <ng-template matStepLabel>Documente ataşate</ng-template>
+      <mat-form-field>
+        <mat-label>CV-ul</mat-label>
+        <input matInput formControlName="tenthCtrl" 
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Scrisoarea de intenţie</mat-label>
+        <input matInput formControlName="eleventhCtrl" 
+               required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <mat-label>Alte documente</mat-label>
+        <input matInput formControlName="twelfthCtrl" 
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+</mat-dialog-content>
+
