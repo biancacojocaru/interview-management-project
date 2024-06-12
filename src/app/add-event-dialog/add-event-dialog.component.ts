@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,inject} from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -11,7 +11,16 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormBuilder, FormGroup, Validators,FormsModule, ReactiveFormsModule,FormControl} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { NgIf } from '@angular/common';
+import { AddEventServiceService } from '../add-event-service.service';
 
 @Component({
   selector: 'app-add-event-dialog',
@@ -23,39 +32,38 @@ import { FormBuilder, FormGroup, Validators,FormsModule, ReactiveFormsModule,For
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    NgIf,
   ],
   templateUrl: './add-event-dialog.component.html',
   styleUrl: './add-event-dialog.component.scss',
 })
 export class AddEventDialogComponent {
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  fourthFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  fifthFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  sixthFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  seventhFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  eighthFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  isLinear = false;
+  public addEventService = inject(AddEventServiceService);
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
+    public eventFormGroup = new FormGroup({
+    titleCtrl: new FormControl('', Validators.required), // Titlul evenimentului
+    dateCtrl: new FormControl('', Validators.required), // Data interviului
+    startTimeCtrl: new FormControl('', Validators.required), // Ora începerii
+    durationCtrl: new FormControl('', Validators.required), // Durata interviului
+    physicalLocationCtrl: new FormControl('', Validators.required), // Locatia fizică
+    onlineLocationCtrl: new FormControl('', Validators.required), // Locatie online
+    interviewersCtrl: new FormControl('', Validators.required), // Intervievatori
+    emailCtrl: new FormControl('', [Validators.required, Validators.email]), // Email candidat
+    phoneCtrl: new FormControl('', Validators.required), // Telefon
+    descriptionCtrl: new FormControl('', Validators.required), // Descrierea interviului
+    cvCtrl: new FormControl('', Validators.required), // CV-ul
+    letterCtrl: new FormControl('', Validators.required), // Scrisoarea de intenţie
+    otherDocsCtrl: new FormControl('', Validators.required), // Alte documente
+  });
+  isLinear = true;
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   constructor(
     public dialog: MatDialog,
@@ -63,11 +71,24 @@ export class AddEventDialogComponent {
     private _formBuilder: FormBuilder
   ) {}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(AddEventDialogComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+  addEvent(){
+    this.addEventService.addEvent({
+      titleCtrl: this.eventFormGroup.value.titleCtrl ?? '',
+      dateCtrl: this.eventFormGroup.value.dateCtrl ?? '',
+      startTimeCtrl: this.eventFormGroup.value.startTimeCtrl ?? '',
+      durationCtrl: this.eventFormGroup.value.durationCtrl ?? '',
+      physicalLocationCtrl: this.eventFormGroup.value.physicalLocationCtrl ?? '',
+      onlineLocationCtrl: this.eventFormGroup.value.onlineLocationCtrl ?? '',
+      interviewersCtrl: this.eventFormGroup.value.interviewersCtrl ?? '',
+      emailCtrl: this.eventFormGroup.value.emailCtrl ?? '',
+      phoneCtrl: this.eventFormGroup.value.phoneCtrl ?? '',
+      descriptionCtrl: this.eventFormGroup.value.descriptionCtrl ?? '',
+      cvCtrl: this.eventFormGroup.value.cvCtrl ?? '',
+      letterCtrl: this.eventFormGroup.value.letterCtrl ?? '',
+      otherDocsCtrl: this.eventFormGroup.value.otherDocsCtrl ?? '',
     });
+
   }
+
+  
 }
