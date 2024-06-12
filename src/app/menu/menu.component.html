@@ -1,7 +1,6 @@
 <div class="sidebar h-screen flex flex-col">
   <div class="p-6">
     <h1 class="text1 font-bold">HR Connect</h1>
-   
   </div>
   <nav class="flex-1 px-4">
     <ul>
@@ -65,19 +64,15 @@
     <a
       href="#"
       routerLink="/settings"
-          routerLinkActive="active"
+      routerLinkActive="active"
       class="block py-3 px-4 rounded transition duration-200 hover:bg-gray-100 flex items-center"
       ><i class="fas fa-cog mr-3 sidebar-icon"></i>Settings</a
     >
     <a
       href="#"
+      (click)="logout()"
       class="block py-3 px-4 rounded transition duration-200 hover:bg-gray-100 flex items-center"
-      ><i
-        class="fas fa-sign-out-alt mr-3 sidebar-icon"
-        [routerLink]="['/login']"
-        routerLinkActive="router-link-active"
-      ></i
-      >Log out</a
+      ><i class="fas fa-sign-out-alt mr-3 sidebar-icon"></i>Log out</a
     >
   </div>
 </div>

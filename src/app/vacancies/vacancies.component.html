@@ -1,7 +1,7 @@
 <main class="main-content flex-1">
   <div class="mt-6 flex justify-end">
     <button
-      class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
+      class="custom-button"
       mat-button
       (click)="openDialog()"
     >
@@ -23,7 +23,7 @@
         <!-- The name of the post cplumn -->
         <ng-container matColumnDef="postName">
           <th mat-header-cell *matHeaderCellDef>
-            <div class="font-bold">Post Name</div>
+            <div class="font-bold">Position Name</div>
           </th>
           <td mat-cell *matCellDef="let element">{{ element.postName }}</td>
         </ng-container>
@@ -96,21 +96,6 @@
           </td>
         </tr>
       </table>
-    </div>
-  </div>
-
-  <div class="mt-6 flex justify-end items-center">
-    <div>
-      <button
-        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
-      >
-        Previous
-      </button>
-      <button
-        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
-      >
-        Next
-      </button>
     </div>
   </div>
 </main>

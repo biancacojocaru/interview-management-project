@@ -24,7 +24,6 @@ export interface JobVacancy {
   status: string;
   deadLine: string;
   location: string;
-  actions: '';
 }
 
 // const ELEMENT_DATA: PeriodicElement[] = [
@@ -41,7 +40,6 @@ const ELEMENT_DATA: JobVacancy[] = [
     status: 'Started',
     deadLine: '23/07/2024',
     location: 'AFI Park 4, Bd-ul Timisoara 4A',
-    actions: '',
   },
   {
     postName: 'sgefgwbe',
@@ -50,7 +48,6 @@ const ELEMENT_DATA: JobVacancy[] = [
     status: 'On-going',
     deadLine: '23/07/2024',
     location: 'AFI Park 4, Bd-ul Timisoara 4A',
-    actions: '',
   },
   {
     postName: 'WEB Developer',
@@ -59,7 +56,6 @@ const ELEMENT_DATA: JobVacancy[] = [
     status: 'Started',
     deadLine: '23/06/2024',
     location: 'AFI Park 4, Bd-ul Timisoara 4A',
-    actions: '',
   },
   {
     postName: 'Tester',
@@ -68,7 +64,6 @@ const ELEMENT_DATA: JobVacancy[] = [
     status: 'On-going',
     deadLine: '27/06/2024',
     location: 'AFI Park 4, Bd-ul Timisoara 4A',
-    actions: '',
   },
 ];
 
@@ -100,7 +95,6 @@ export class VacanciesComponent {
     'status',
     'deadLine',
     'location',
-    'actions',
   ];
   public dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -116,6 +110,7 @@ export class VacanciesComponent {
   public openDialog() {
     const dialogRef = this.matDialog.open(AddVacancyDialogComponent, {
       width: '500px',
+      height: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

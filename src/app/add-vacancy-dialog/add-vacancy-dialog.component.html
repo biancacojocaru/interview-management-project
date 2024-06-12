@@ -1,18 +1,73 @@
 <h2 mat-dialog-title>Add a vacant position</h2>
+
 <mat-dialog-content>
-    Casuta text pentru nume post<br><br>
+  <form [formGroup]="applyForm">
+    <mat-form-field>
+      <mat-label for="position-name">Position name</mat-label>
+      <mat-select formControlName="positionName" required>
+        <mat-option>--</mat-option>
+        @for (postName of postNames; track postName) {
+        <mat-option [value]="postName.name">{{ postName.name }}</mat-option>
+        }
+      </mat-select>
+      @if (applyForm.get('positionName')?.hasError('required')) {
+      <mat-error>Please choose post name</mat-error>
+      } </mat-form-field
+    ><br />
 
-    Casuta text pentru nume departament<br><br>
+    <mat-form-field>
+      <mat-label for="department-name">Department name</mat-label>
+      <mat-select formControlName="departmentName" required>
+        <mat-option>--</mat-option>
+        @for (departmentName of departmentNames; track departmentName) {
+        <mat-option [value]="departmentName">{{ departmentName.name }}</mat-option>
+        }
+      </mat-select>
+      @if (departmentNameControl.hasError('required')) {
+      <mat-error>Please choose post name</mat-error>
+      }
+    </mat-form-field>
 
-    Casuta de selectat Full-Time sau Part-Time<br><br>
+    <p>Chose type job</p>
+    <mat-button-toggle-group formControlName="typeJob" name="type-job" aria-label="Type of job">
+      <mat-button-toggle value="full-time">Full-Time</mat-button-toggle>
+      <mat-button-toggle value="part-time"
+        >Part-Time</mat-button-toggle
+      > </mat-button-toggle-group
+    ><br /><br />
 
-    Casuta de selectat statusul postului<br><br>
-    
-    Casuta tip data-time pentru a stabili DeadLine<br><br>
+    <p>Chose status</p>
+    <mat-button-toggle-group formControlName="status" name="status" aria-label="Status">
+      <mat-button-toggle value="start">Start</mat-button-toggle>
+      <mat-button-toggle value="on-going"
+        >On-going</mat-button-toggle
+      > </mat-button-toggle-group
+    ><br /><br />
 
-    Casuta text pentru locatia unde se lucreaza pentru postul respectiv
+    <mat-form-field>
+      <mat-label>Choose the deadline</mat-label>
+      <input formControlName="deadLine" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> </mat-form-field
+    ><br /><br />
+
+    <p>Coplete the location for the job's work place</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Location</mat-label>
+      <input
+      formControlName="location"
+        matInput
+        placeholder="Ex. Bucuresti"
+        value="AFI Park 4, Timisoara 4A"
+      />
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Add</button>
+  <button mat-raised-button>Cancel</button>
+  <button class="add-button" mat-raised-button color="primary" (click)="addNewVacancy()" >Add</button>
 </mat-dialog-actions>

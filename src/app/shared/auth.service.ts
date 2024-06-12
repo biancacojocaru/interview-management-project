@@ -21,8 +21,8 @@ export class AuthService {
   firebaseAuth = inject(Auth);
 
   constructor(private router: Router) {
-    // const stringUser = localStorage.getItem('user');
-    // this.userSubject.next(stringUser ? JSON.parse(stringUser) : null);
+    const stringUser = localStorage.getItem('user');
+    this.userSubject.next(stringUser ? JSON.parse(stringUser) : null);
   }
 
   //login method

@@ -5,6 +5,21 @@
 .main-content {
   padding: 20px;
 }
+
+.custom-button {
+  background-color: hsl(145, 100, 25); /* Equivalent to bg-green-500 */
+  color: white !important; /* Equivalent to text-white */
+  padding-left: 1.5rem; /* Equivalent to px-6 */
+  padding-right: 1.5rem; /* Equivalent to px-6 */
+  padding-top: 0.5rem; /* Equivalent to py-2 */
+  padding-bottom: 0.5rem; /* Equivalent to py-2 */
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+}
+
+.custom-button:hover {
+  background-color: rgb(29, 134, 29); /* Equivalent to hover:bg-green-600 */
+  color: white;
+}
 .header {
   display: flex;
   justify-content: space-between;
