@@ -1,4 +1,4 @@
-import { Component, OnInit ,inject} from '@angular/core';
+import { Component, OnInit ,inject,ChangeDetectionStrategy} from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -8,6 +8,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogConfig,
 } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,12 +22,16 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
 import { AddEventServiceService } from '../add-event-service.service';
+import {DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule, provideNativeDateAdapter} from '@angular/material/core';
+
+
 
 @Component({
   selector: 'app-add-event-dialog',
   standalone: true,
   imports: [
     MatButtonModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -36,8 +41,10 @@ import { AddEventServiceService } from '../add-event-service.service';
     ReactiveFormsModule,
     NgIf,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './add-event-dialog.component.html',
   styleUrl: './add-event-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddEventDialogComponent {
   public addEventService = inject(AddEventServiceService);
