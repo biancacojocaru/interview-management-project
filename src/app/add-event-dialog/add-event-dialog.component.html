@@ -23,14 +23,13 @@
       <mat-step>
         <ng-template matStepLabel>Data si ora</ng-template>
         <mat-form-field class="date-full-width">
-          <mat-label>Data</mat-label>
-          <input
-            matInput
-            formControlName="dateCtrl"
-            placeholder="Selecteaza data interviului"
-            required
-          /> </mat-form-field
-        ><br />
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker> 
+        </mat-form-field>
+        <br />
         <mat-form-field class="hour-full-width">
           <mat-label>Ora începerii</mat-label>
           <input
