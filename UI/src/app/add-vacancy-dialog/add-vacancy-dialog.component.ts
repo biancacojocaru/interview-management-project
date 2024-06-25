@@ -22,7 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { AddVacanciesValidatorService } from '../add-vacancies-validator.service';
 
-interface PostName {
+interface PositionName {
   name: string;
 }
 
@@ -55,7 +55,7 @@ interface DepartmentName {
 export class AddVacancyDialogComponent {
   public addVacanciesService = inject(AddVacanciesValidatorService);
 
-  postNames: PostName[] = [
+  postNames: PositionName[] = [
     { name: 'HR' },
     { name: 'WEB Developer' },
     { name: 'Ceva' },

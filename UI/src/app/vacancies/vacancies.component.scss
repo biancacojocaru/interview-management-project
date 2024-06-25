@@ -7,7 +7,7 @@
 }
 
 .custom-button {
-  background-color: hsl(145, 100, 25); /* Equivalent to bg-green-500 */
+  background-color: #002F6B; /* Equivalent to bg-green-500 */
   color: white !important; /* Equivalent to text-white */
   padding-left: 1.5rem; /* Equivalent to px-6 */
   padding-right: 1.5rem; /* Equivalent to px-6 */
@@ -17,15 +17,15 @@
 }
 
 .custom-button:hover {
-  background-color: rgb(29, 134, 29); /* Equivalent to hover:bg-green-600 */
+  background-color: #F48026; /* Equivalent to hover:bg-green-600 */
   color: white;
 }
-.header {
+
+.headbar{
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
 }
+
 .search-bar {
   width: 100%;
   max-width: 400px;

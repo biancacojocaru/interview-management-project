@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AddVacanciesValidatorService {
+export class AddCandidatesValidatorService {
 
   constructor() { }
 
-  public addVacancy(obj: object) {
+  public addCandidate(obj: object) {
     console.log(obj)
   }
-
 }
