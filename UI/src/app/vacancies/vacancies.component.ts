@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -9,63 +9,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddVacancyDialogComponent } from '../add-vacancy-dialog/add-vacancy-dialog.component';
-
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
-
-export interface JobVacancy {
-  postName: string;
-  department: string;
-  jobType: string;
-  status: string;
-  deadLine: string;
-  location: string;
-}
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-//   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-//   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-// ];
-
-const ELEMENT_DATA: JobVacancy[] = [
-  {
-    postName: 'HR',
-    department: 'HR',
-    jobType: 'Full-Time',
-    status: 'Started',
-    deadLine: '23/07/2024',
-    location: 'AFI Park 4, Bd-ul Timisoara 4A',
-  },
-  {
-    postName: 'sgefgwbe',
-    department: 'Implementare',
-    jobType: 'Full-Time',
-    status: 'On-going',
-    deadLine: '23/07/2024',
-    location: 'AFI Park 4, Bd-ul Timisoara 4A',
-  },
-  {
-    postName: 'WEB Developer',
-    department: 'Developement',
-    jobType: 'Full-Time',
-    status: 'Started',
-    deadLine: '23/06/2024',
-    location: 'AFI Park 4, Bd-ul Timisoara 4A',
-  },
-  {
-    postName: 'Tester',
-    department: 'Developement',
-    jobType: 'Full-Time',
-    status: 'On-going',
-    deadLine: '27/06/2024',
-    location: 'AFI Park 4, Bd-ul Timisoara 4A',
-  },
-];
+import { VacancyService } from '../shared/services/vacancy.service';
+import { Vacancy } from '../shared/models/vacancy.model';
+import { Subject, Subscription, of, pipe, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-vacancies',
@@ -85,25 +31,27 @@ const ELEMENT_DATA: JobVacancy[] = [
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.scss',
 })
-export class VacanciesComponent {
+export class VacanciesComponent implements OnInit, OnDestroy {
   public matDialog = inject(MatDialog);
+  public vacancyService = inject(VacancyService);
+  private destroy$ = new Subject();
 
   public displayedColumns: string[] = [
-    'postName',
-    'department',
+    'positionName',
+    'nameDepartment',
     'jobType',
-    'status',
+    'statusType',
     'deadLine',
     'location',
   ];
-  public dataSource = new MatTableDataSource(ELEMENT_DATA);
+  public dataSource = new MatTableDataSource();
 
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public deleteVacancy(element: JobVacancy) {
+  public deleteVacancy(element: Vacancy) {
     console.log('Delete', element);
   }
 
@@ -116,5 +64,17 @@ export class VacanciesComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  public ngOnInit(): void {
+    this.vacancyService
+      .getVacancies()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((vacancies) => (this.dataSource.data = vacancies));
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }

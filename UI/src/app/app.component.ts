@@ -2,7 +2,7 @@ import { Component, OnInit, importProvidersFrom, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MenuComponent } from './menu/menu.component';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { Observable, tap } from 'rxjs';
 import { User } from '@angular/fire/auth';
 
