@@ -60,9 +60,9 @@ export class AddCandidatesDialogComponent {
   ];
 
   //pnteru numele departamentului in dialog
-  departmentNameControl = new FormControl<Department | null>(null);
-  selectDepartmentNameFormControl = new FormControl('', Validators.required);
-  departmentNames: Department[] = [
+  departmentControl = new FormControl<Department | null>(null);
+  selectDepartmentFormControl = new FormControl('', Validators.required);
+  departments: Department[] = [
     { name: 'HR' },
     { name: 'WEB Development' },
     { name: 'IT' },

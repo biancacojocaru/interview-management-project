@@ -14,7 +14,7 @@
       <mat-form-field class="example-full-width">
         <mat-label>Email</mat-label>
         <input
-        formControlName="emal"
+        formControlName="email"
           matInput
           placeholder="Ex. name.sth@gmail.com"
           value=""
@@ -65,14 +65,14 @@
     ><br />
     <p>Chose the department name</p>
     <mat-form-field>
-      <mat-label for="department-name">Department name</mat-label>
-      <mat-select formControlName="departmentName" required>
+      <mat-label for="department">Department name</mat-label>
+      <mat-select formControlName="department" required>
         <mat-option>--</mat-option>
-        @for (departmentName of departmentNames; track departmentName) {
-        <mat-option [value]="departmentName">{{ departmentName.name }}</mat-option>
+        @for (department of departments; track department) {
+        <mat-option [value]="department">{{ department.name }}</mat-option>
         }
       </mat-select>
-      @if (departmentNameControl.hasError('required')) {
+      @if (departmentControl.hasError('required')) {
       <mat-error>Please choose post name</mat-error>
       }
     </mat-form-field>

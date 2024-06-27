@@ -6,11 +6,11 @@ import { VerifyEmailComponent } from './components/authentication/verify-email/v
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
 import { VacanciesComponent } from './vacancies/vacancies.component';
 import { CandidatesComponent } from './candidates/candidates.component';
 import { OffersComponent } from './offers/offers.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 const appName = 'Interview Management Portal';
 
