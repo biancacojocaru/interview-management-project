@@ -10,76 +10,116 @@ namespace API.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-
-        public DepartmentController(IConfiguration configuration)
+        private readonly IConfiguration _config;
+        public DepartmentController(IConfiguration config)
         {
-            _configuration = configuration;
+            _config = config;
         }
 
-        // Temporary in-memory data store
-        private static List<Department> departments = new List<Department>
-        {
-            new Department { DepartmentId = 1, NameDepartment = "HR" },
-            new Department { DepartmentId = 2, NameDepartment = "IT" }
-        };
-
-
-        // GET: api/Department
+        // GET: api/<DepartmentController>
         [HttpGet]
-        public ActionResult<IEnumerable<Department>> GetDepartments()
+        public List<Department> GetDepartment()
         {
-            return Ok(departments);
-        }
+            using (IDbConnection connection = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    SELECT * 
+                    FROM Department";
 
-        // GET: api/Department/5
+                return connection.Query<Department>(query).ToList();
+            }
+        }
+        // GET: api/<DepartmentController>/5
         [HttpGet("{id}")]
-        public ActionResult<Department> GetDepartment(int id)
+        public ActionResult<Department> GetDepartmentById(int id)
         {
-            var department = departments.FirstOrDefault(d => d.DepartmentId == id);
-            if (department == null)
+            using (IDbConnection connection = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]))
             {
-                return NotFound();
+                string query = $@"
+                    SELECT * 
+                    FROM Department
+                    WHERE DepartmentId = {id}";
+
+                var department = connection.QueryFirstOrDefault<Department>(query);
+
+                if (department == null)
+                {
+                    return NotFound();
+                }
+
+                return department;
             }
-            return Ok(department);
         }
 
-        // POST: api/Department
+
+        // POST: api/<DepartmentController>
         [HttpPost]
-        public ActionResult<Department> PostDepartment(Department department)
+        public void CreateDepartment([FromBody] Department department)
         {
-            department.DepartmentId = departments.Max(d => d.DepartmentId) + 1;
-            departments.Add(department);
-            return CreatedAtAction(nameof(GetDepartment), new { id = department.DepartmentId }, department);
+            using (IDbConnection connection = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    INSERT INTO Department 
+                    (
+                        NameDepartment
+                    )
+                    VALUES 
+                    (
+                        '{department.NameDepartment}'
+                    )";
+
+                connection.Execute(query);
+            }
         }
 
-        // PUT: api/Department/5
+
+        // PUT: api/<DepartmentController>/5
         [HttpPut("{id}")]
-        public IActionResult PutDepartment(int id, Department department)
+        public IActionResult UpdateDepartment(int id, [FromBody] Department department)
         {
-            var existingDepartment = departments.FirstOrDefault(d => d.DepartmentId == id);
-            if (existingDepartment == null)
+            if (id != department.DepartmentId)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            existingDepartment.NameDepartment = department.NameDepartment;
-            return NoContent();
+            using (IDbConnection connection = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    UPDATE Department
+                    SET NameDepartment = '{department.NameDepartment}'
+                    WHERE DepartmentId = {department.DepartmentId}";
+
+                var affectedRows = connection.Execute(query, department);
+
+                if (affectedRows == 0)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
         }
 
 
-        /// DELETE: api/Department/5
+        // DELETE: api/<DepartmentController>/5
         [HttpDelete("{id}")]
         public IActionResult DeleteDepartment(int id)
         {
-            var department = departments.FirstOrDefault(d => d.DepartmentId == id);
-            if (department == null)
+            using (IDbConnection connection = new SqlConnection(_config["ConnectionStrings:DefaultConnection"]))
             {
-                return NotFound();
-            }
+                string query = $@"
+                    DELETE FROM Department
+                    WHERE DepartmentId = {id}";
 
-            departments.Remove(department);
-            return NoContent();
+                var affectedRows = connection.Execute(query);
+
+                if (affectedRows == 0)
+                {
+                    return NotFound();
+                }
+
+                return NoContent();
+            }
         }
     }
 }

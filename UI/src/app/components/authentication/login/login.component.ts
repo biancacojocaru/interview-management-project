@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../shared/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import {
   FormBuilder,
   FormsModule,

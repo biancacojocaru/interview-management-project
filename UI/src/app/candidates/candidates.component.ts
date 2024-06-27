@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -9,69 +9,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddCandidatesDialogComponent } from '../add-candidates-dialog/add-candidates-dialog.component';
-
-export interface Candidates {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  cv: string;
-  otherDocuments: string;
-  positionName: string;
-  department: string;
-}
-
-const ELEMENT_DATA: Candidates[] = [
-  {
-    name: 'Bianca Cojocaru',
-    email: 'bcojocaru@gmail.com',
-    phoneNumber: '0766886330',
-    cv: 'link',
-    otherDocuments: 'link',
-    positionName: 'WEB Developer',
-    department: 'Development',
-  },
-  {
-    name: 'Andrei Popescu',
-    email: 'andrei.popescu@example.com',
-    phoneNumber: '0745123456',
-    cv: 'link',
-    otherDocuments: 'link',
-    positionName: 'Backend Developer',
-    department: 'IT',
-  },
-  {
-    name: 'Maria Ionescu',
-    email: 'maria.ionescu@example.com',
-    phoneNumber: '0722334455',
-    cv: 'link',
-    otherDocuments: 'link',
-    positionName: 'Project Manager',
-    department: 'Management',
-  },
-  {
-    name: 'Vlad Georgescu',
-    email: 'vlad.georgescu@example.com',
-    phoneNumber: '0733445566',
-    cv: 'link',
-    otherDocuments: 'link',
-    positionName: 'UI/UX Designer',
-    department: 'Design',
-  },
-  {
-    name: 'Iulia Litoiu',
-    email: 'iuli.litoiu@example.com',
-    phoneNumber: '0733435566',
-    cv: 'link',
-    otherDocuments: 'link',
-    positionName: 'UI/UX Designer',
-    department: 'Design',
-  },
-];
+import { HttpClientModule } from '@angular/common/http';
+import { CandidateService } from '../shared/services/candidate.service';
+import { Subject,Subscription, of ,pipe,takeUntil } from 'rxjs';
+import { Candidate} from '../shared/models/candidate.model'; 
 
 @Component({
   selector: 'app-candidates',
   standalone: true,
-  imports: [MatButtonModule,
+  imports: [
+    MatButtonModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -80,31 +27,34 @@ const ELEMENT_DATA: Candidates[] = [
     MatIconModule,
     RouterLink,
     RouterLinkActive,
-    MatDialogModule,],
+    MatDialogModule,
+    HttpClientModule,
+  ],
   templateUrl: './candidates.component.html',
-  styleUrl: './candidates.component.scss'
+  styleUrl: './candidates.component.scss',
 })
-
-export class CandidatesComponent {
+export class CandidatesComponent implements OnInit, OnDestroy {
   public matDialog = inject(MatDialog);
+  public candidateService = inject(CandidateService);
+  private destroy$ = new Subject();
 
   public displayedColumns: string[] = [
-    'name',
+    'nameCandidate',
     'email',
     'phoneNumber',
     'cv',
-    'otherDocuments',
+    'documents',
     'positionName',
-    'department',
+    'nameDepartment',
   ];
-  public dataSource = new MatTableDataSource(ELEMENT_DATA);
+  public dataSource = new MatTableDataSource();
 
   public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public deleteVacancy(element: Candidates) {
+  public deleteVacancy(element: Candidate) {
     console.log('Delete', element);
   }
 
@@ -119,4 +69,22 @@ export class CandidatesComponent {
     });
   }
 
+  // Example row click function
+  onRowClicked(row: Candidate) {
+    console.log('Row clicked', row);
+    // Implement row click actions as needed
+  }
+
+
+  public ngOnInit(): void {
+    this.candidateService
+      .getCandidates()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((candidates) => (this.dataSource.data = candidates));
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 }

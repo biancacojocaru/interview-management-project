@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '../../shared/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { MenuComponent } from '../../menu/menu.component';
 import { RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';

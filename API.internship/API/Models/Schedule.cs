@@ -13,7 +13,6 @@
         public string? Email { get; set; }
         public string? CV { get; set; }
         public string? Documents { get; set; }
-        public Candidates? Candidates { get; set; }
         public string? Details { get; set; }
   
     }

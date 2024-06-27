@@ -1,6 +1,9 @@
 ﻿using API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlClient;
+using System.Data;
+using Dapper;
 
 namespace API.Controllers
 {
@@ -8,73 +11,112 @@ namespace API.Controllers
     [ApiController]
     public class CandidatesController : ControllerBase
     {
-        private static List<Candidates> candidates = new List<Candidates>
-        {
-            new Candidates { CandidateId = 1, NameCandidate = "John Doe", Email = "john.doe@example.com", PhoneNumber = "1234567890", CV = "cv.pdf", Document = "doc.pdf", VacanciesId = 1, DepartmentId = 1 },
-            new Candidates { CandidateId = 2, NameCandidate = "Jane Smith", Email = "jane.smith@example.com", PhoneNumber = "0987654321", CV = "cv2.pdf", Document = "doc2.pdf", VacanciesId = 2, DepartmentId = 2 }
-        };
+        private readonly IConfiguration _configuration;
 
-        // GET: api/Candidates
+        public CandidatesController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpGet]
-        public ActionResult<IEnumerable<Candidates>> GetCandidates()
+        public List<Candidates> GetCandidates()
         {
-            return Ok(candidates);
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    SELECT c.*, v.*,d.*
+                    FROM Candidates c
+                    JOIN Vacancies v ON v.VacanciesId = c.VacanciesId
+                    JOIN Department d ON d.DepartmentId = c.DepartmentId";
+                return connection.Query<Candidates>(query).ToList();
+            }
         }
 
-        // GET: api/Candidates/5
+
         [HttpGet("{id}")]
-        public ActionResult<Candidates> GetCandidate(int id)
+        public ActionResult<Candidates> GetCandidateById(int id)
         {
-            var candidate = candidates.FirstOrDefault(c => c.CandidateId == id);
-            if (candidate == null)
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
-                return NotFound();
+                string query = $@"
+                   SELECT c.*, v.*,d.*
+                    FROM Candidates c
+                    JOIN Vacancies v ON v.VacanciesId = c.VacanciesId
+                    JOIN Department d ON d.DepartmentId = c.DepartmentId
+                    WHERE c.CandidateId = {id}";
+                var candidate = connection.QueryFirstOrDefault<Candidates>(query);
+
+                if (candidate == null)
+                {
+                    return NotFound();
+                }
+
+                return candidate;
             }
-            return Ok(candidate);
         }
 
-        // POST: api/Candidates
+
         [HttpPost]
-        public ActionResult<Candidates> PostCandidate(Candidates candidate)
+        public void InsertCandidate([FromBody] Candidates candidate)
         {
-            candidate.CandidateId = candidates.Max(c => c.CandidateId) + 1;
-            candidates.Add(candidate);
-            return CreatedAtAction(nameof(GetCandidate), new { id = candidate.CandidateId }, candidate);
-        }
-
-        // PUT: api/Candidates/5
-        [HttpPut("{id}")]
-        public IActionResult PutCandidate(int id, Candidates candidate)
-        {
-            var existingCandidate = candidates.FirstOrDefault(c => c.CandidateId == id);
-            if (existingCandidate == null)
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
-                return NotFound();
+                string query = $@"
+                    INSERT INTO Candidates 
+                    (
+                        NameCandidate, 
+                        Email, 
+                        PhoneNumber, 
+                        CV, 
+                        Documents, 
+                        VacanciesId
+                        DepartmentId
+                    )
+                    VALUES 
+                    (
+                        '{candidate.NameCandidate}', 
+                        '{candidate.Email}', 
+                        '{candidate.PhoneNumber}', 
+                        '{candidate.CV}', 
+                        '{candidate.Documents}', 
+                        '{candidate.VacanciesId}',
+                        '{candidate.DepartmentId}',
+                    )";
+                connection.Execute(query);
             }
-
-            existingCandidate.NameCandidate = candidate.NameCandidate;
-            existingCandidate.Email = candidate.Email;
-            existingCandidate.PhoneNumber = candidate.PhoneNumber;
-            existingCandidate.CV = candidate.CV;
-            existingCandidate.Document = candidate.Document;
-            existingCandidate.VacanciesId = candidate.VacanciesId;
-            existingCandidate.DepartmentId = candidate.DepartmentId;
-
-            return NoContent();
         }
 
-        // DELETE: api/Candidates/5
+        [HttpPut]
+        public void UpdateCandidate([FromBody] Candidates candidate)
+        {
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    UPDATE Candidates
+                    SET 
+                        NameCandidate = '{candidate.NameCandidate}', 
+                        Email = '{candidate.Email}', 
+                        PhoneNumber = '{candidate.PhoneNumber}', 
+                        CV = '{candidate.CV}', 
+                        Documents = '{candidate.Documents}', 
+                        VacanciesId = {candidate.VacanciesId}
+                        DepartmentId = {candidate.DepartmentId}
+                    WHERE 
+                        CandidateId = {candidate.CandidateId}";
+                connection.Execute(query);
+            }
+        }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteCandidate(int id)
+        public void DeleteCandidate(int id)
         {
-            var candidate = candidates.FirstOrDefault(c => c.CandidateId == id);
-            if (candidate == null)
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
-                return NotFound();
+                string query = $@"
+                    DELETE FROM Candidates
+                    WHERE CandidateId = {id}";
+                connection.Execute(query);
             }
-
-            candidates.Remove(candidate);
-            return NoContent();
         }
     }
 }
