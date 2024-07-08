@@ -6,8 +6,8 @@ export interface Candidate {
    cv: string;
    document: string;
    vacanciesId: number;
-   positionName: string;
+   positionName?: string;
    departmentId: number;
-   nameDepartment: string;
+   nameDepartment?: string;
   }
   

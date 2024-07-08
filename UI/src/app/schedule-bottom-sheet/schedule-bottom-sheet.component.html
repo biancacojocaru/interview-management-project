@@ -9,8 +9,8 @@
     <p>No Planned Meetings today</p>
   </div>
   <div *ngIf="data.meetings.length > 0">
-    <div *ngFor="let meeting of data.meetings" class="meeting-card">
-      {{ meeting }}
+    <div *ngFor="let meeting of data.meetings" class="meeting-card" (click)="openEditDialog(meeting)">
+      <span>{{ meeting.title }}</span> <span>{{meeting.hour}}</span>
     </div>
   </div>
 </div>

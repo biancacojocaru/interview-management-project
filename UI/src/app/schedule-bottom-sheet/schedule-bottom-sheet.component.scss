@@ -5,6 +5,8 @@
 
 
 .meeting-card {
+  display: flex;
+  justify-content: space-between;
   background-color:white;
   border-left: 4px solid #002F6B;
   padding: 30px;
@@ -24,5 +26,4 @@
   justify-content: space-between;
   color:#F48026;
   font-weight: bold;
-
 }

@@ -1,3 +1,3 @@
 export interface Meetings {
-    [key: string]: string[];
-  }
+  [key: string]: string[];
+}

@@ -96,6 +96,7 @@ body {
 }
 
 .calendar-grid-cell {
+  position: relative;
   padding: 30px;
   display: flex;
   align-items: center;
@@ -106,6 +107,17 @@ body {
   border-radius: 4px;
   background: white;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.number-of-event {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+  background-color:#F48026 ;
+  color: white;
+  border-radius: 37%;
+  padding: 2px 9px;
+  font-size: 12px;
 }
 
 .calendar-grid-cell:hover {

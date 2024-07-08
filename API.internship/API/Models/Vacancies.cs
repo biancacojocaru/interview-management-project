@@ -8,7 +8,7 @@
         public string? NameDepartment { get; set; }
         public int JobType { get; set; }
         public int StatusType { get; set; }
-        public DateTime DeadLine { get; set; }
+        public string DeadLine { get; set; }
         public string? Location { get; set; }
     }
 }
