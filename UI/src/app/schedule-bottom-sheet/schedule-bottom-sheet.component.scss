@@ -1,28 +1,33 @@
-:host{
+:host {
   padding-left: 250px;
 }
 
-
-
 .meeting-card {
-  background-color:white;
-  border-left: 4px solid #002F6B;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-left: 4px solid #002f6b;
   padding: 30px;
   margin-bottom: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
   height: 80px;
+
+  .meeting-card-hour {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .meeting-card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.add-event{
+.add-event {
   display: flex;
   justify-content: space-between;
-  color:#F48026;
+  color: #f48026;
   font-weight: bold;
-
 }

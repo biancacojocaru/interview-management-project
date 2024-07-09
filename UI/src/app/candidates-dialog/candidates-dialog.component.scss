@@ -1,0 +1,33 @@
+button {
+  margin-right: 8px;
+}
+
+.add-button {
+  background-color: #002f6b;
+  color: white;
+}
+.add-button:hover {
+  background-color: #f48026;
+}
+
+.example-form {
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.dialog-size {
+  width: 600px;
+  height: 700px;
+}
+
+.mat-mdc-dialog-content {
+  max-height: none;
+}
+
+.close-dialog {
+  display: flex;
+  justify-content: end;
+}

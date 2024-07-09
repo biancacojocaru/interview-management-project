@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
@@ -8,10 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AddVacancyDialogComponent } from '../add-vacancy-dialog/add-vacancy-dialog.component';
+import { VacancyDialogComponent } from '../vacancy-dialog/vacancy-dialog.component';
 import { VacancyService } from '../shared/services/vacancy.service';
 import { Vacancy } from '../shared/models/vacancy.model';
 import { Subject, Subscription, of, pipe, takeUntil } from 'rxjs';
+import { ConfirmDialogComponent } from './dialog-delete.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-vacancies',
@@ -27,6 +31,8 @@ import { Subject, Subscription, of, pipe, takeUntil } from 'rxjs';
     RouterLink,
     RouterLinkActive,
     MatDialogModule,
+    MatCardModule,
+    DatePipe
   ],
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.scss',
@@ -36,6 +42,12 @@ export class VacanciesComponent implements OnInit, OnDestroy {
   public vacancyService = inject(VacancyService);
   private destroy$ = new Subject();
 
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
+
   public displayedColumns: string[] = [
     'positionName',
     'nameDepartment',
@@ -43,6 +55,7 @@ export class VacanciesComponent implements OnInit, OnDestroy {
     'statusType',
     'deadLine',
     'location',
+    'edit',
   ];
   public dataSource = new MatTableDataSource();
 
@@ -51,18 +64,17 @@ export class VacanciesComponent implements OnInit, OnDestroy {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public deleteVacancy(element: Vacancy) {
-    console.log('Delete', element);
-  }
-
   public openDialog() {
-    const dialogRef = this.matDialog.open(AddVacancyDialogComponent, {
-      width: '500px',
-      height: '500px',
+    const dialogRef = this.matDialog.open(VacancyDialogComponent, {
+      width: '600px',
+      height: '450px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      if (result === true) {
+        console.log('The dialog was closed');
+        location.reload();
+      }
     });
   }
 
@@ -73,8 +85,56 @@ export class VacanciesComponent implements OnInit, OnDestroy {
       .subscribe((vacancies) => (this.dataSource.data = vacancies));
   }
 
+  public openEditDialog(vacancyId: number) {
+    const dialogRef = this.matDialog.open(VacancyDialogComponent, {
+      width: '500px',
+      height: '700px',
+      data: {
+        vacancyId 
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
   public ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  public openDeleteDialog(event: Event, vacancy: Vacancy): void {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { vacancyId: vacancy.vacanciesId },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.deleteVacancy(vacancy.vacanciesId);
+        location.reload();
+      }
+    });
+  }
+
+  public deleteVacancy(vacanciesId: number) {
+    this.vacancyService.deleteVacancy(vacanciesId).subscribe(
+      () => {
+        console.log(`Vacancy with ID ${vacanciesId} deleted successfully`);
+        this.snackBar.open('Vacancy deleted successfully', 'Close', {
+          duration: 2000,
+        });
+        // Reload the list of vacancies or update the UI accordingly
+      },
+      (error: any) => {
+        console.error('Error deleting vacancy:', error);
+        this.snackBar.open('Error deleting vacancy', 'Close', {
+          duration: 2000,
+        });
+      }
+    );
   }
 }

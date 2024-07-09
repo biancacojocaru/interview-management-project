@@ -57,7 +57,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public void InsertCandidate([FromBody] Candidates candidate)
+        public ActionResult<int> InsertCandidate([FromBody] Candidates candidate)
         {
             using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
@@ -68,8 +68,8 @@ namespace API.Controllers
                         Email, 
                         PhoneNumber, 
                         CV, 
-                        Documents, 
-                        VacanciesId
+                        Document, 
+                        VacanciesId,
                         DepartmentId
                     )
                     VALUES 
@@ -78,11 +78,11 @@ namespace API.Controllers
                         '{candidate.Email}', 
                         '{candidate.PhoneNumber}', 
                         '{candidate.CV}', 
-                        '{candidate.Documents}', 
+                        '{candidate.Document}', 
                         '{candidate.VacanciesId}',
-                        '{candidate.DepartmentId}',
-                    )";
-                connection.Execute(query);
+                        '{candidate.DepartmentId}'
+                    );";
+                return connection.Execute(query);
             }
         }
 
@@ -91,6 +91,7 @@ namespace API.Controllers
         {
             using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
+
                 string query = $@"
                     UPDATE Candidates
                     SET 
@@ -98,11 +99,11 @@ namespace API.Controllers
                         Email = '{candidate.Email}', 
                         PhoneNumber = '{candidate.PhoneNumber}', 
                         CV = '{candidate.CV}', 
-                        Documents = '{candidate.Documents}', 
-                        VacanciesId = {candidate.VacanciesId}
-                        DepartmentId = {candidate.DepartmentId}
+                        Document = '{candidate.Document}', 
+                        VacanciesId = '{candidate.VacanciesId}',
+                        DepartmentId = '{candidate.DepartmentId}'
                     WHERE 
-                        CandidateId = {candidate.CandidateId}";
+                        CandidateId = '{candidate.CandidateId}'";
                 connection.Execute(query);
             }
         }

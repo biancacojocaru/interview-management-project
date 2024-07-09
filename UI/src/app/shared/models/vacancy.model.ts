@@ -1,11 +1,15 @@
 export interface Vacancy {
     vacanciesId: number;
-    positionName: string;
+    positionName?: string;
     departmentId: number;
-    nameDepartment: string;
+    nameDepartment?: string;
     jobType: number;
     statusType: number;
     deadLine: string;
     location: string;
   }
   
+  export interface Department {
+    departmentId: number;
+    nameDepartment: string;
+  }

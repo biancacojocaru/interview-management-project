@@ -101,19 +101,23 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.mat-step-icon-selected {
+  background-color: #002f6b;
+}
 
 
+// Define custom primary palette based on the provided colors
 $custom-primary-palette: (
-  50: #e8eaf6,
-  100: #c5cae9,
-  200: #9fdaa8,
-  300: #89cb79,
-  400: #5cc081,
-  500: #3fb562,
-  600: #39ae73,
-  700: #3ba531,
-  800: #409d29,
-  900: #1b8d36,
+  50: #e5e7eb,
+  100: #104299,
+  200: #163464,
+  300: #4d72ac,
+  400: #25599a,
+  500: #002f6b, // Focus border color
+  600: #002a60,
+  700: #002455,
+  800: #001f4b,
+  900: #00163a,
   contrast: (
     50: #000,
     100: #000,
@@ -128,22 +132,47 @@ $custom-primary-palette: (
   ),
 );
 
-$custom-typography: mat.define-typography-config(
-  $font-family: sans-serif,
+// Define custom accent palette based on the provided colors
+$custom-accent-palette: (
+  50: #ffe7d1,
+  100: #ffcea3,
+  200: #ffb575,
+  300: #ff9d47,
+  400: #ff881f,
+  500: #f48026, // Checkbox background color
+  600: #e67822,
+  700: #d86e1e,
+  800: #ca641a,
+  900: #b85512,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  ),
 );
+
 $custom-primary: mat.define-palette($custom-primary-palette);
 $custom-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$custom-worn: mat.define-palette(mat.$red-palette);
+$custom-warn: mat.define-palette(mat.$red-palette);
 
-$custom-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $custom-primary,
-      accent: $custom-accent,
-      worn: $custom-worn,
-    ),
-    typography: $custom-typography,
-  )
-);
+// Define the theme
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  ),
+  typography: mat.define-typography-config(
+    $font-family: sans-serif,
+  ),
+));
+
 
 @include mat.all-component-themes($custom-theme);

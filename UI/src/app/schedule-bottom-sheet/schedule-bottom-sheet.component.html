@@ -1,7 +1,11 @@
 <div>
   <div class="add-event">
     <h2>{{ data.date }}</h2>
-    <button mat-icon-button aria-label="Example icon button with a heart icon" (click)="openDialog()">
+    <button
+      mat-icon-button
+      aria-label="Example icon button with a heart icon"
+      (click)="openDialog(data.date)"
+    >
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
@@ -9,8 +13,23 @@
     <p>No Planned Meetings today</p>
   </div>
   <div *ngIf="data.meetings.length > 0">
-    <div *ngFor="let meeting of data.meetings" class="meeting-card">
-      {{ meeting }}
+    <div
+      *ngFor="let meeting of data.meetings"
+      class="meeting-card"
+      (click)="openEditDialog(meeting)"
+    >
+      <div>{{ meeting.title }}</div>
+      <div class="meeting-card-hour">
+        <span>{{ meeting.hour }}</span>
+        <button
+          mat-icon-button
+          color="warn"
+          aria-label="Delete candidate"
+          (click)="openDeleteDialog($event, meeting)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>

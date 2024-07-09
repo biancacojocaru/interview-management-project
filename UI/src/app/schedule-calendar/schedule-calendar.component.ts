@@ -1,9 +1,11 @@
 import {
   Component,
   InputSignal,
+  OnInit,
   Signal,
   WritableSignal,
   computed,
+  inject,
   input,
   signal,
 } from '@angular/core';
@@ -13,10 +15,13 @@ import { Meetings } from './meetings.interface';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ScheduleBottomSheetComponent } from '../schedule-bottom-sheet/schedule-bottom-sheet.component';
+import { Schedule, ScheduleEvent } from '../shared/models/event.model';
+import { Observable } from 'rxjs';
+import { EventService } from '../shared/services/event.service';
 
 const MEETINGS = {
   '2024-06-05': ['Dring Coffee', 'Learn React', 'Sleep'],
-  '2024-06-06': ['Dring Coffee', 'Learn Angular', 'Sleep'],
+  '2024-06-06': ['Dring Coffee', 'Learn Angular', 'Sleep', 'Bla'],
 };
 
 @Component({
@@ -27,7 +32,10 @@ const MEETINGS = {
   styleUrl: './schedule-calendar.component.scss',
 })
 export class ScheduleCalendarComponent {
-  meetings: Signal<Meetings>;
+  public eventService = inject(EventService);
+
+  public schedule$: Observable<Schedule>;
+  meetings: Signal<Schedule> = signal({});
   today: Signal<DateTime>;
   firstDayOfActiveMonth: WritableSignal<DateTime>;
   activeDay: WritableSignal<DateTime | null>;
@@ -36,7 +44,6 @@ export class ScheduleCalendarComponent {
   DATE_MED = DateTime.DATE_MED;
 
   constructor(private bottomSheet: MatBottomSheet) {
-    this.meetings = signal(MEETINGS);
     this.today = signal(DateTime.local());
     this.firstDayOfActiveMonth = signal(this.today().startOf('month'));
     this.activeDay = signal(null);
@@ -54,6 +61,9 @@ export class ScheduleCalendarComponent {
           return d.start;
         });
     });
+
+    this.schedule$ = this.eventService.getEvent();
+    this.schedule$.subscribe((schedule) => (this.meetings = signal(schedule)));
   }
 
   goToPreviousMonth(): void {
@@ -81,11 +91,19 @@ export class ScheduleCalendarComponent {
     });
   }
 
-  activeDayMeetings(): string[] {
+  getNumberOfEvents(day: DateTime): number {
+    const dayIso = day.toISODate();
+    if (!dayIso) return 0;
+
+    return this.meetings()[dayIso]?.length ?? 0;
+  }
+
+  activeDayMeetings(): ScheduleEvent[] {
     const activeDay = this.activeDay();
     if (!activeDay) return [];
     const activeDayISO = activeDay.toISODate();
     if (!activeDayISO) return [];
+
     return this.meetings()[activeDayISO] ?? [];
   }
 }

@@ -4,10 +4,21 @@
 
 .main-content {
   padding: 20px;
+
+  .header-card {
+    margin-bottom: 40px;
+
+    .headbar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+  }
 }
 
 .custom-button {
-  background-color: #002F6B; /* Equivalent to bg-green-500 */
+  background-color: #002f6b; /* Equivalent to bg-green-500 */
   color: white !important; /* Equivalent to text-white */
   padding-left: 1.5rem; /* Equivalent to px-6 */
   padding-right: 1.5rem; /* Equivalent to px-6 */
@@ -17,13 +28,8 @@
 }
 
 .custom-button:hover {
-  background-color: #F48026; /* Equivalent to hover:bg-green-600 */
+  background-color: #f48026; /* Equivalent to hover:bg-green-600 */
   color: white;
-}
-
-.headbar{
-  display: flex;
-  justify-content: space-between;
 }
 
 .search-bar {
@@ -84,5 +90,13 @@ table {
 }
 
 .mat-mdc-text-field-wrapper {
-    width: 30%;
+  width: 30%;
+}
+
+.color-button {
+  color: #002f6b;
+}
+
+.mat-column-edit  {
+  width: 130px;
 }

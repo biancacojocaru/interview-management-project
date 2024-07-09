@@ -1,0 +1,84 @@
+<form [formGroup]="applyForm" (ngSubmit)="addNewVacancy()">
+  <div class="close-dialog">
+    <button mat-icon-button  mat-dialog-close>
+      <mat-icon >close</mat-icon>
+    </button>
+  </div>
+<mat-dialog-content>
+    <mat-form-field class="example-full-width">
+      <mat-label>Positino name</mat-label>
+      <input
+        formControlName="positionName"
+        matInput
+        placeholder="Ex. Developer"
+        value=""
+      /> </mat-form-field
+    ><br />
+
+    <mat-form-field>
+      <mat-label for="department-name">Department name</mat-label>
+      <mat-select formControlName="departmentId" required>
+        @for (department of departments$ | async; track department) {
+        <mat-option [value]="department.departmentId">{{
+          department.nameDepartment
+        }}</mat-option>
+        }
+      </mat-select>
+      @if (DepartmentControl.hasError('required')) {
+      <mat-error>Please choose post name</mat-error>
+      }
+    </mat-form-field>
+
+    <p>Chose type job</p>
+    <mat-button-toggle-group
+      formControlName="jobType"
+      name="type-job"
+      aria-label="Type of job"
+    >
+      <mat-button-toggle value="0">Full-Time</mat-button-toggle>
+      <mat-button-toggle value="1"
+        >Part-Time</mat-button-toggle
+      > </mat-button-toggle-group
+    ><br /><br />
+
+    <p>Chose status</p>
+    <mat-button-toggle-group
+      formControlName="status"
+      name="status"
+      aria-label="Status"
+    >
+      <mat-button-toggle value="0">Unpublished</mat-button-toggle>
+      <mat-button-toggle value="1"
+        >Published</mat-button-toggle
+      > </mat-button-toggle-group
+    ><br /><br />
+
+    <mat-form-field>
+      <mat-label>Choose the end date</mat-label>
+      <input formControlName="deadLine" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> </mat-form-field
+    ><br /><br />
+
+    <p>Coplete the location for the job's work place</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Location</mat-label>
+      <input
+        formControlName="location"
+        matInput
+        placeholder="Ex. Bucuresti"
+        value="AFI Park 4, Timisoara 4A"
+      />
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button type="submit" class="add-button" mat-raised-button color="accent">
+    {{ data?.vacancyId? "Edit" : "Add"}}
+  </button>
+</mat-dialog-actions>
+</form>

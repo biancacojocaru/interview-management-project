@@ -1,88 +1,102 @@
 :host {
-    width: 100%;
-  }
-  
-  .main-content {
-    padding: 20px;
-  }
-  
-  .custom-button {
-    background-color: #002F6B; /* Equivalent to bg-green-500 */
-    color: white !important; /* Equivalent to text-white */
-    padding-left: 1.5rem; /* Equivalent to px-6 */
-    padding-right: 1.5rem; /* Equivalent to px-6 */
-    padding-top: 0.5rem; /* Equivalent to py-2 */
-    padding-bottom: 0.5rem; /* Equivalent to py-2 */
-    border-radius: 0.5rem; /* Equivalent to rounded-lg */
-  }
-  
-  .custom-button:hover {
-    background-color: #F48026; /* Equivalent to hover:bg-green-600 */
-    color: white;
-  }
-  
-  .headbar{
-    display: flex;
-    justify-content: space-between;
-  }
+  width: 100%;
+}
 
-  .search-bar {
-    width: 100%;
-    max-width: 400px;
-    border: 2px solid #e5e7eb;
-    padding: 10px;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease;
+.main-content {
+  padding: 20px;
+
+  .header-card {
+    margin-bottom: 40px;
+
+    .headbar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
   }
-  .search-bar:focus {
-    border-color: #51b206;
-    box-shadow: 0 0 0 1px #51b206;
-  }
-  .vacancy-table th,
-  .vacancy-table td {
-    padding: 12px 15px;
-    text-align: left;
-  }
-  .vacancy-table th {
-    background-color: #fff4f4;
-    color: #000000;
-    font-weight: 600;
-    border-bottom: 2px solid #000000;
-  }
-  
-  .action-buttons button {
-    margin-right: 10px;
-  }
-  .data-container {
-    background-color: rgb(228, 228, 228);
-  }
-  table {
-    width: 100%;
-  }
-  
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .button1 {
-    color: #189eeb;
-  }
-  
-  .table-row:hover {
-    background-color: #f6f7f7;
-    cursor: pointer;
-  }
-  
-  .mat-column-actions {
-    width: 15px;
-  }
-  
-  .mat-column-location {
-    width: 300px;
-  }
-  
-  .mat-mdc-text-field-wrapper {
-      width: 30%;
-  }
+}
+
+.action-buttons {
+  display: flex;
+}
+
+.custom-button {
+  background-color: #002f6b; /* Equivalent to bg-green-500 */
+  color: white !important; /* Equivalent to text-white */
+  padding-left: 1.5rem; /* Equivalent to px-6 */
+  padding-right: 1.5rem; /* Equivalent to px-6 */
+  padding-top: 0.5rem; /* Equivalent to py-2 */
+  padding-bottom: 0.5rem; /* Equivalent to py-2 */
+  border-radius: 0.5rem; /* Equivalent to rounded-lg */
+}
+
+.custom-button:hover {
+  background-color: #f48026; /* Equivalent to hover:bg-green-600 */
+  color: white;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  border: 2px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.search-bar:focus {
+  border-color: #51b206;
+  box-shadow: 0 0 0 1px #51b206;
+}
+.vacancy-table th,
+.vacancy-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+.vacancy-table th {
+  background-color: #fff4f4;
+  color: #000000;
+  font-weight: 600;
+  border-bottom: 2px solid #000000;
+}
+
+.action-buttons button {
+  margin-right: 10px;
+}
+.data-container {
+  background-color: rgb(228, 228, 228);
+}
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.button1 {
+  color: #189eeb;
+}
+
+.table-row:hover {
+  background-color: #f6f7f7;
+  cursor: pointer;
+}
+
+.mat-column-actions {
+  width: 15px;
+}
+
+.mat-column-location {
+  width: 300px;
+}
+
+.mat-mdc-text-field-wrapper {
+  width: 30%;
+}
+
+.color-button {
+  color: #002f6b;
+}

@@ -61,7 +61,7 @@ namespace API.Controllers
 
         // POST api/<VacanciesController>
         [HttpPost]
-        public void InsertVacancy(Vacancies vacancy)
+        public ActionResult<int> InsertVacancy(Vacancies vacancy)
         {
             using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
             {
@@ -84,7 +84,7 @@ namespace API.Controllers
                         '{vacancy.DeadLine}', 
                         '{vacancy.Location}'
                     )";
-                connection.Execute(query);
+                return connection.Execute(query);
             }
         }
 

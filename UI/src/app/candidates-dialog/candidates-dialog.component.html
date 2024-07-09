@@ -1,0 +1,83 @@
+<form [formGroup]="applyForm" (ngSubmit)="addNewCandidate()">
+  <div class="close-dialog">
+    <button mat-icon-button  mat-dialog-close>
+      <mat-icon >close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <p>Complete the name field</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" matInput placeholder="" value="" />
+    </mat-form-field>
+
+    <p>Coplete the email field</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        matInput
+        placeholder="Ex. name.sth@gmail.com"
+        value=""
+      />
+    </mat-form-field>
+
+    <p>Coplete the phone number field</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Phone Number</mat-label>
+      <input
+        formControlName="phone"
+        matInput
+        placeholder="Ex. 0XXXYYYZZZ"
+        value=""
+      />
+    </mat-form-field>
+
+    <p>Coplete the cv field</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>CV</mat-label>
+      <input formControlName="cv" matInput placeholder="Ex. Link" value="" />
+    </mat-form-field>
+
+    <p>Coplete the link for other documents</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Other Documents</mat-label>
+      <input
+        formControlName="otherDocuments"
+        matInput
+        placeholder="Ex. Link"
+        value=""
+      />
+    </mat-form-field>
+
+    <p>Chose the position name</p>
+    <mat-form-field>
+      <mat-label for="position-name">Position name</mat-label>
+      <mat-select formControlName="vacanciesId" required>
+        @for (vacancies of vacancies$ | async; track vacancies) {
+        <mat-option [value]="vacancies.vacanciesId">{{
+          vacancies.positionName
+        }}</mat-option>
+        }
+      </mat-select> </mat-form-field
+    ><br />
+
+    <p>Chose the department name</p>
+    <mat-form-field>
+      <mat-label for="department">Department name</mat-label>
+      <mat-select [formControl]="applyForm.controls.departmentId" required>
+        @for (department of departments$ | async; track department) {
+        <mat-option [value]="department.departmentId">{{
+          department.nameDepartment
+        }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="button" mat-raised-button mat-dialog-close>Cancel</button>
+    <button type="submit" class="add-button" mat-raised-button color="accent">
+      {{ data?.candidateId ? "Edit" : "Add" }}
+    </button>
+  </mat-dialog-actions>
+</form>

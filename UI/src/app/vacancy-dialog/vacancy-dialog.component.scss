@@ -1,0 +1,27 @@
+button {
+  margin-right: 8px;
+}
+
+.add-button {
+  background-color: #002f6b;
+  color: white;
+}
+.add-button:hover {
+  background-color: #f48026;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.close-dialog{
+  display: flex;
+  justify-content: end;
+  
+}
