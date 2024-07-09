@@ -14,8 +14,15 @@
     display: block;
     margin-bottom: 30px;
   }
-  
+  .create-event-card{
+    display: flex;
+    justify-content: space-between;
+  }
 
+  .card-title{
+    font-size:large;
+    font-weight: 500;
+  }
   // .mat-step-icon-selected {
   //   background-color: red;
   // }

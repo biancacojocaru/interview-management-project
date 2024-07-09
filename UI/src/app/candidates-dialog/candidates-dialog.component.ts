@@ -26,6 +26,7 @@ import { Observable, of } from 'rxjs';
 import { VacancyService } from '../shared/services/vacancy.service';
 import { Department, Vacancy } from '../shared/models/vacancy.model';
 import { DepartmentService } from '../shared/services/department.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-candidates-dialog',
@@ -42,6 +43,7 @@ import { DepartmentService } from '../shared/services/department.service';
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
+    MatIconModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './candidates-dialog.component.html',

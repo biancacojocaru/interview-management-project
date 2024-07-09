@@ -38,6 +38,7 @@ import { ScheduleEvent } from '../shared/models/event.model';
 import { Candidate } from '../shared/models/candidate.model';
 import { CandidateService } from '../shared/services/candidate.service';
 import { Observable } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-event-dialog',
@@ -54,6 +55,7 @@ import { Observable } from 'rxjs';
     MatCardModule,
     ReactiveFormsModule,
     NgIf,
+    MatIconModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-event-dialog.component.html',
@@ -80,9 +82,15 @@ export class AddEventDialogComponent {
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddEventDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { scheduleEvent: ScheduleEvent }
+    @Inject(MAT_DIALOG_DATA)
+    public data: { scheduleEvent: ScheduleEvent; date: string }
   ) {
     this.candidates$ = this.candidateService.getCandidates();
+    if (this.data?.date) {
+      this.eventFormGroup.patchValue({
+        date: this.formatDate(this.data.date),
+      });
+    }
     if (this.data?.scheduleEvent) {
       this.eventFormGroup.patchValue({
         title: this.data?.scheduleEvent.title,
@@ -96,19 +104,39 @@ export class AddEventDialogComponent {
     }
   }
 
+  public formatDate(date: string): string {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
   public addEvent() {
     if (this.eventFormGroup.valid) {
       const formEvent: ScheduleEvent = {
         eventId: this.data?.scheduleEvent?.eventId ?? 0,
         title: this.eventFormGroup.value.title ?? '',
-        date: this.eventFormGroup.value.date ?? '',
+        date: this.formatDate(this.eventFormGroup.value.date ?? ''),
         hour: this.eventFormGroup.value.hour ?? '',
         location: this.eventFormGroup.value.location ?? '',
         nameEmployee: this.eventFormGroup.value.interviewer ?? '',
         details: this.eventFormGroup.value.description ?? '',
         candidateId: this.eventFormGroup.value.candidateId ?? 0,
       };
-      this.eventService.addEvent(formEvent).subscribe(() => location.reload());
+      if (this.data?.scheduleEvent?.eventId) {
+        this.eventService
+          .updateEvent(formEvent)
+          .subscribe(() => location.reload());
+      } else {
+        this.eventService
+          .addEvent(formEvent)
+          .subscribe(() => location.reload());
+      }
     } else {
       this.eventFormGroup.markAllAsTouched();
     }

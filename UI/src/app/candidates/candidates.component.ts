@@ -15,6 +15,7 @@ import { Subject,Subscription, of ,pipe,takeUntil } from 'rxjs';
 import { Candidate} from '../shared/models/candidate.model'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './dialog-delete.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-candidates',
@@ -31,6 +32,7 @@ import { ConfirmDialogComponent } from './dialog-delete.component';
     RouterLinkActive,
     MatDialogModule,
     HttpClientModule,
+    MatCardModule
   ],
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.scss',
@@ -46,12 +48,9 @@ export class CandidatesComponent implements OnInit, OnDestroy {
     'nameCandidate',
     'email',
     'phoneNumber',
-    'cv',
-    'documents',
     'positionName',
     'nameDepartment',
-    'edit',
-    'delete',
+    'actions',
   ];
   public dataSource = new MatTableDataSource();
 

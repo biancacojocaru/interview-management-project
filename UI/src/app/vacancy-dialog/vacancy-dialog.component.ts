@@ -27,6 +27,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Department, Vacancy } from '../shared/models/vacancy.model';
 import { Observable, of } from 'rxjs';
 import { DepartmentService } from '../shared/services/department.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-vacancy-dialog',
@@ -46,6 +47,7 @@ import { DepartmentService } from '../shared/services/department.service';
     MatInputModule,
     MatButtonToggleModule,
     MatDatepickerModule,
+    MatIconModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './vacancy-dialog.component.html',

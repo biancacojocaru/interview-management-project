@@ -1,16 +1,21 @@
-<mat-card>
-  <mat-card-content>Creare eveniment</mat-card-content>
+<mat-card >
+  <mat-card-content class="create-event-card">
+    <span class="card-title">{{data?.scheduleEvent ? "Edit" : "Create" }} schedule event</span> 
+    <button mat-rased-button mat-dialog-close>
+      <mat-icon >close</mat-icon>
+    </button>
+  </mat-card-content>
 </mat-card>
-<mat-dialog-content class="creat-event-full-width">
+<mat-dialog-content class="create-event-full-width">
   <form [formGroup]="eventFormGroup">
     <mat-vertical-stepper [linear]="isLinear" #stepper>
       <mat-step>
-        <ng-template matStepLabel>Titlul evenimentului</ng-template>
+        <ng-template matStepLabel>Event Title</ng-template>
         <mat-form-field class="title-full-width">
-          <mat-label>Titlul</mat-label>
+          <mat-label>Title</mat-label>
           <input
             matInput
-            placeholder="Interviu cu [Numele Candidatului]"
+            placeholder="Interview with [Candidate's Name]"
             formControlName="title"
             required
           />
@@ -21,7 +26,7 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Data si ora</ng-template>
+        <ng-template matStepLabel>Date and Time</ng-template>
         <mat-form-field class="date-full-width">
           <mat-label>Choose a date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="date" />
@@ -34,7 +39,7 @@
         </mat-form-field>
         <br />
         <mat-form-field class="hour-full-width">
-          <mat-label>Ora începerii</mat-label>
+          <mat-label>Start Time</mat-label>
           <input
             matInput
             formControlName="hour"
@@ -49,13 +54,13 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Locatia</ng-template>
+        <ng-template matStepLabel>Location</ng-template>
         <mat-form-field class="location1-full-width">
-          <mat-label>Locatia</mat-label>
+          <mat-label>Location</mat-label>
           <input
             matInput
             formControlName="location"
-            placeholder="Adresa locaţiei interviului"
+            placeholder="Interview location address"
             required
           /> </mat-form-field
         ><br />
@@ -66,21 +71,23 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Participanţi</ng-template>
+        <ng-template matStepLabel>Participants</ng-template>
         <mat-form-field class="interviewers-full-width">
-          <mat-label>Intervievator</mat-label>
+          <mat-label>Interviewer</mat-label>
           <input
             matInput
             formControlName="interviewer"
-            placeholder="Numele si functia intervievatorului"
+            placeholder="Name and position of the interviewer"
             required
           /> </mat-form-field
         ><br />
 
         <mat-form-field>
           <mat-label for="candidateId">Candidate</mat-label>
-          <mat-select [formControl]="eventFormGroup.controls.candidateId" required>
-            <mat-option>--</mat-option>
+          <mat-select
+            [formControl]="eventFormGroup.controls.candidateId"
+            required
+          >
             @for (candidate of candidates$ | async; track candidate) {
             <mat-option [value]="candidate.candidateId">{{
               candidate.nameCandidate
@@ -88,7 +95,7 @@
             }
           </mat-select>
         </mat-form-field>
-        <br>
+        <br />
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -96,19 +103,21 @@
       </mat-step>
 
       <mat-step>
-        <ng-template matStepLabel>Descrierea evenimentului</ng-template>
+        <ng-template matStepLabel>Event Description</ng-template>
         <mat-form-field class="description-full-width">
-          <mat-label>Descriere</mat-label>
+          <mat-label>Description</mat-label>
           <input
             matInput
-            placeholder="Descrierea interviului si instrucţiuni speciale"
+            placeholder="Interview description and special instructions"
             formControlName="description"
             required
           />
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="addEvent()">{{data?.scheduleEvent ? "Edit event": "Add event"}}</button>
+          <button mat-button (click)="addEvent()">
+            {{ data?.scheduleEvent ? "Edit event" : "Add event" }}
+          </button>
           <button mat-button type="button" (click)="stepper.reset()">
             Reset
           </button>

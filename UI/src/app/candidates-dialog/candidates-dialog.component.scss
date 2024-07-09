@@ -26,3 +26,8 @@ button {
 .mat-mdc-dialog-content {
   max-height: none;
 }
+
+.close-dialog {
+  display: flex;
+  justify-content: end;
+}

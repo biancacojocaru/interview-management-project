@@ -14,6 +14,8 @@ import { Vacancy } from '../shared/models/vacancy.model';
 import { Subject, Subscription, of, pipe, takeUntil } from 'rxjs';
 import { ConfirmDialogComponent } from './dialog-delete.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-vacancies',
@@ -29,6 +31,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     RouterLink,
     RouterLinkActive,
     MatDialogModule,
+    MatCardModule,
+    DatePipe
   ],
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.scss',
@@ -52,7 +56,6 @@ export class VacanciesComponent implements OnInit, OnDestroy {
     'deadLine',
     'location',
     'edit',
-    'delete',
   ];
   public dataSource = new MatTableDataSource();
 

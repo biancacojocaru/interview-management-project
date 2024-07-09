@@ -99,5 +99,38 @@ namespace API.Controllers
             }
         }
 
+        [HttpPut]
+        public void UpdateEvent([FromBody] Schedule schedule)
+        {
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    UPDATE Events
+                    SET 
+                        Title = '{schedule.Title}', 
+                        Date = '{schedule.Date}', 
+                        Hour = '{schedule.Hour}', 
+                        Location = '{schedule.Location}', 
+                        NameEmployee = '{schedule.NameEmployee}', 
+                        Details = '{schedule.Details}',
+                        CandidateId = '{schedule.CandidateId}'
+                    WHERE 
+                        EventId = '{schedule.EventId}'";
+                connection.Execute(query);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteEvent(int id)
+        {
+            using (IDbConnection connection = new SqlConnection(_configuration["ConnectionStrings:DefaultConnection"]))
+            {
+                string query = $@"
+                    DELETE FROM Events
+                    WHERE EventId = {id}";
+                connection.Execute(query);
+            }
+        }
+
     };
 }   
